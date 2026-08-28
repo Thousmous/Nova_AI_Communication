@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova AI Communication - 使用教程</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        .container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .header h1 {
+            font-size: 2.8em;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5, #00d2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .header .subtitle { font-size: 1.2em; color: #888; margin-bottom: 20px; }
+        .header .version {
+            display: inline-block;
+            background: linear-gradient(90deg, #3a7bd5, #00d2ff);
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .section:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,210,255,0.1); }
+        .section h2 {
+            font-size: 1.6em;
+            color: #00d2ff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section h2 .icon {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2em;
+        }
+        .section p, .section li { line-height: 1.8; color: #ccc; margin-bottom: 8px; }
+        .section ul { padding-left: 20px; }
+        .section li { margin-bottom: 6px; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 16px; }
+        .card {
+            background: rgba(0,210,255,0.06);
+            border: 1px solid rgba(0,210,255,0.15);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .card .card-icon { font-size: 2em; margin-bottom: 10px; }
+        .card .card-title { font-size: 1.1em; color: #00d2ff; margin-bottom: 6px; }
+        .card .card-desc { font-size: 0.9em; color: #999; }
+        .code-block {
+            background: #1a1a2e;
+            border: 1px solid rgba(0,210,255,0.2);
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #7ee8fa;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-right: 6px;
+        }
+        .badge-blue { background: rgba(0,210,255,0.15); color: #00d2ff; }
+        .badge-green { background: rgba(0,255,136,0.15); color: #00ff88; }
+        .badge-orange { background: rgba(255,165,0,0.15); color: #ffa500; }
+        .badge-purple { background: rgba(186,85,211,0.15); color: #ba55d3; }
+        .table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        .table th { background: rgba(0,210,255,0.1); color: #00d2ff; padding: 12px; text-align: left; border-radius: 8px 8px 0 0; }
+        .table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); color: #ccc; }
+        .table tr:hover td { background: rgba(255,255,255,0.02); }
+        .step-list { counter-reset: step; list-style: none; padding-left: 0; }
+        .step-list li {
+            counter-increment: step;
+            padding-left: 50px;
+            position: relative;
+            margin-bottom: 16px;
+            min-height: 36px;
+        }
+        .step-list li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0; top: 0;
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; color: #fff;
+        }
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .footer a { color: #00d2ff; text-decoration: none; }
+        .alert {
+            background: rgba(255,165,0,0.08);
+            border: 1px solid rgba(255,165,0,0.2);
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+            color: #ffcc80;
+        }
+        .alert-title { font-weight: bold; margin-bottom: 6px; }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8em; }
+            .section { padding: 20px; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🚀 Nova AI Communication</h1>
+        <div class="subtitle">基于小智ESP32服务器的智能语音交互系统</div>
+        <div class="version">V0.1.1</div>
+    </div>
+
+    <div class="section">
+        <h2><span class="icon">📋</span> 系统概览</h2>
+        <p>Nova AI Communication 是一套部署在腾讯云轻量应用服务器上的智能语音交互系统，基于小智ESP32开源项目构建。系统支持本地语音识别（ASR）、语音合成（TTS）、大语言模型对话（LLM）等核心功能，可实现ESP32设备的语音交互能力。</p>
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-icon">🎙️</div>
+                <div class="card-title">语音识别</div>
+                <div class="card-desc">FunASR / SenseVoice<br>本地部署，支持多语言</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔊</div>
+                <div class="card-title">语音合成</div>
+                <div class="card-desc">Minimax TTS<br>粤语女声，自然流畅</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🧠</div>
+                <div class="card-title">大语言模型</div>
+                <div class="card-desc">DeepSeek<br>智能对话，上下文记忆</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">📡</div>
+                <div class="card-title">WebSocket</div>
+                <div class="card-desc">实时通信<br>低延迟语音传输</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2><span class="icon">🌐</span> 服务端口说明</h2>
+        <table class="table">
+            <thead>
+                <tr><th>服务</th><th>端口</th><th>协议</th><th>用途</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>WebSocket 服务</td><td>8000</td><td>WS</td><td>ESP32设备语音通信主通道</td></tr>
+                <tr><td>管理后台（智控台）</td><td>8002</td><td>HTTP</td><td>设备管理、配置管理、数据查看</td></tr>
+                <tr><td>HTTP API 服务</td><td>8003</td><td>HTTP</td><td>视觉分析接口、API调用</td></tr>
+                <tr><td>MySQL 数据库</td><td>3306</td><td>TCP</td><td>数据存储（仅容器内访问）</td></tr>
+                <tr><td>Redis 缓存</td><td>6379</td><td>TCP</td><td>会话缓存（仅容器内访问）</td></tr>
+            </tbody>
+        </table>
+        <div class="code-block">服务器地址：106.52.48.167
+WebSocket地址：ws://106.52.48.167:8000/xiaozhi/v1/
+管理后台地址：http://106.52.48.167:8002
+HTTP API地址：http://106.52.48.167:8003</div>
+    </div>
+
+    <div class="section">
+        <h2><span class="icon">🔧</span> 设备连接配置</h2>
+        <p>将ESP32设备连接到Nova AI Communication系统，按以下步骤操作：</p>
+        <ol class="step-list">
+            <li><strong>获取设备OTA地址</strong>：在ESP32设备烧录小智固件后，设备会进入配网模式。通过串口或蓝牙获取设备MAC地址。</li>
+            <li><strong>配置WebSocket地址</strong>：在设备配置中设置WebSocket服务器地址为 <code>ws://106.52.48.167:8000/xiaozhi/v1/</code></li>
+            <li><strong>注册设备</strong>：访问管理后台 <code>http://106.52.48.167:8002</code>，在智控台中添加新设备，获取设备激活码。</li>
+            <li><strong>激活设备</strong>：在ESP32设备上输入激活码完成绑定，设备将自动连接到服务器。</li>
+            <li><strong>验证连接</strong>：设备激活后，管理后台会显示设备在线状态，此时可以开始语音交互。</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2><span class="icon">🎙️</span> 语音交互使用</h2>
+        <p>设备连接成功后，即可使用语音交互功能：</p>
+        <ol class="step-list">
+            <li><strong>唤醒设备</strong>：按下ESP32设备上的按键或说出唤醒词，设备进入监听状态。</li>
+            <li><strong>语音输入</strong>：对着设备说话，系统会自动检测语音开始和结束（VAD）。</li>
+            <li><strong>语音识别</strong>：系统将语音发送到本地SenseVoice模型进行识别，转换为文字。</li>
+            <li><strong>AI对话</strong>：识别后的文字发送给DeepSeek大模型生成智能回复。</li>
+            <li><strong>语音合成</strong>：回复文字通过Minimax TTS合成为粤语语音播放。</li>
+            <li><strong>播放回复</strong>：设备扬声器播放合成语音，完成一次交互循环。</li>
+        </ol>
+        <div class="alert">
+            <div class="alert-title">💡 语音交互流程</div>
+            说话 → VAD检测 → 语音识别(ASR) → 大模型(LLM) → 语音合成(TTS) → 播放回复
+        </div>
+    </div>
+
+    <div class="section">
+        <h2><span class="icon">⚙️</span> 系统架构</h2>
+        <p>系统采用Docker Compose部署，包含4个核心容器：</p>
+        <table class="table">
+            <thead>
+                <tr><th>容器名称</th><th>镜像</th><th>功能</th><th>内存限制</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>xiaozhi-esp32-server</td><td>server_latest</td><td>语音AI处理主程序</td><td><span class="badge badge-purple">1.75G</span></td></tr>
+                <tr><td>xiaozhi-esp32-server-web</td><td>web_latest</td><td>管理后台（Java）</td><td><span class="badge badge-blue">448M</span></td></tr>
+                <tr><td>xiaozhi-esp32-server-db</td><td>mysql:latest</td><td>MySQL数据库</td><td><span class="badge badge-blue">448M</span></td></tr>
+                <tr><td>xiaozhi-esp32-server-redis</td><td>redis</td><td>Redis缓存</td><td><span class="badge badge-green">64M</span></td></tr>
+            </tbody>
+        </table>
+        <p><span class="badge badge-orange">服务器配置</span> 腾讯云轻量应用服务器 | 2核CPU | 3.6G内存 | Ubuntu 24.04 | 广州地域</p>
+    </div>
+
+    <div class="section">
+        <h2><span class="icon">🖥️</span> 管理后台使用</h2>
+        <p>管理后台（智控台）提供以下功能：</p>
+        <ul>
+            <li><strong>设备管理</strong>：查看所有已注册设备、在线状态、激活码管理</li>
+            <li><strong>用户管理</strong>：管理用户账号、权限配置</li>
+            <li><strong>对话记录</strong>：查看设备语音交互历史记录</li>
+            <li><strong>系统配置</strong>：修改ASR/TTS/LLM服务配置</li>
+            <li><strong>OTA管理</strong>：管理设备固件升级</li>
+        </ul>
+        <div class="code-block">访问地址：http://106.52.48.167:8002
+默认账号：admin
+默认密码：admin（首次登录后请修改）</div>
+    </div>
+
+    <div class="section">
+        <h2><span class="icon">❓</span> 常见问题</h2>
+        <ul>
+            <li><strong>Q：设备无法连接服务器？</strong><br>A：检查设备配置的WebSocket地址是否正确（ws://106.52.48.167:8000/xiaozhi/v1/），确认服务器防火墙已开放8000端口。</li>
+            <li><strong>Q：语音识别响应慢？</strong><br>A：本地语音识别需要占用较多CPU和内存，同时多设备交互时可能排队。建议减少同时交互的设备数量。</li>
+            <li><strong>Q：管理后台无法访问？</strong><br>A：检查服务器防火墙是否开放8002端口，确认Web容器正常运行。</li>
+            <li><strong>Q：语音合成声音不好听？</strong><br>A：可在管理后台系统配置中更换TTS服务或语音模型。</li>
+            <li><strong>Q：服务器内存不足？</strong><br>A：语音AI模型需要约1.7G内存，建议升级服务器到8G内存以获得更好体验。</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2><span class="icon">📦</span> 部署与维护</h2>
+        <p>系统通过Docker Compose部署，常用维护命令：</p>
+        <div class="code-block"># 查看容器状态
+docker ps -a
+
+# 重启所有服务
+cd /home/lighthouse/xiaozhi-server
+docker compose -f docker-compose_all.yml restart
+
+# 查看服务日志
+docker logs -f xiaozhi-esp32-server
+docker logs -f xiaozhi-esp32-server-web
+
+# 重建所有容器
+docker compose -f docker-compose_all.yml down
+docker compose -f docker-compose_all.yml up -d
+
+# 查看内存使用
+docker stats --no-stream
+free -h</div>
+    </div>
+
+    <div class="footer">
+        <p>Nova AI Communication · 基于 <a href="https://github.com/xinnan-tech/xiaozhi-esp32-server" target="_blank">小智ESP32服务器</a> 开源项目</p>
+        <p>部署于腾讯云轻量应用服务器 · 广州地域 · V0.1.1</p>
+        <p>© 2025 Thousmous · <a href="https://github.com/Thousmous/Nova_AI_Communication" target="_blank">GitHub仓库</a></p>
+    </div>
+</div>
+</body>
+</html>
