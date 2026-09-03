@@ -44,7 +44,7 @@ Nova AI Communication 是一套完整的智能语音交互系统，基于小智E
 |------|------|
 | 服务器 | 腾讯云轻量应用服务器 |
 | 地域 | 广州 |
-| CPU | 2核 AMD EPYC 9754 |
+| CPU | 4核 AMD EPYC 9754 |
 | 内存 | 3.6G |
 | 系统 | Ubuntu 24.04 LTS |
 | Docker | Docker Compose |
@@ -79,7 +79,7 @@ Nova_AI_Communication/
 
 ## 版本历史
 
-当前版本：**V0.1.2**（2026-09-03）
+当前版本：**V0.1.1**（2026-09-03 更新）
 
 完整更新记录请查看 [CHANGELOG.md](./V0.1.1/CHANGELOG.md)。
 

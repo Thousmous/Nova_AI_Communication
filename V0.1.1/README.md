@@ -1,7 +1,7 @@
 # Nova AI Communication
 基于小智ESP32服务器的智能语音交互系统，部署于腾讯云轻量应用服务器。
 
-当前版本：**V0.1.2**（2026-09-03）
+当前版本：**V0.1.1**（2026-09-03 更新）
 
 📖 **[使用教程](./tutorial.html)** - 点击查看完整使用指南
 
@@ -21,7 +21,7 @@
 ## 环境配置
 - 服务器：腾讯云轻量应用服务器（广州地域）
 - 系统：Ubuntu 24.04 LTS
-- CPU：2核 AMD EPYC 9754
+- CPU：4核 AMD EPYC 9754
 - 内存：3.6G
 - ASR：FunASR（本地 SenseVoice 模型）
 - TTS：Minimax（粤语-Cantonese_GentleLady）
