@@ -179,7 +179,7 @@ class TTSProvider(TTSProviderBase):
             "model": self.model,
             "text": text,
             "stream": True,
-            "voice_setting": self.voice_setting,
+            "voice_setting": ({k: v for k, v in self.voice_setting.items() if v not in ("", None)} if isinstance(self.voice_setting, dict) else self.voice_setting),
             "pronunciation_dict": self.pronunciation_dict,
             "audio_setting": self.audio_setting,
         }

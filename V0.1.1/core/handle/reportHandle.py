@@ -34,7 +34,21 @@ async def report(conn: "ConnectionHandler", type, text, opus_data, report_time):
     """
     try:
         if opus_data:
-            audio_data = opus_to_wav(conn, opus_data)
+            if type == 2:
+                # 智能体回复收集的是Opus压缩帧，需先解码为PCM
+                packets = opus_data if isinstance(opus_data, list) else [opus_data]
+                decoder = opuslib_next.Decoder(16000, 1)
+                pcm_parts = []
+                for pkt in packets:
+                    if not pkt:
+                        continue
+                    try:
+                        pcm_parts.append(decoder.decode(pkt, 960))
+                    except Exception:
+                        continue
+                opus_data = b"".join(pcm_parts) if pcm_parts else None
+            # 用户输入(type=1)的音频已是PCM，直接转换
+            audio_data = opus_to_wav(conn, opus_data) if opus_data else None
         else:
             audio_data = None
         # 执行异步上报

@@ -82,6 +82,8 @@ Nova_AI_Communication/
 | 版本 | 日期 | 说明 |
 |------|------|------|
 | V0.1.1 | 2026-08-28 | 初始版本 |
+| V0.1.2 | 2026-09-03 | 修复Minimax TTS空emotion参数导致无音频、历史记录音频沙沙声（Opus解码）、用户输入记录丢失三个问题 |
+| V0.1.2 | 2026-09-03 | 修复Minimax TTS空emotion参数导致无音频、历史记录音频沙沙声（Opus解码）、用户输入记录丢失三个问题 |
 
 ## 相关链接
 
@@ -92,4 +94,4 @@ Nova_AI_Communication/
 - [小智ESP32开源项目](https://github.com/xinnan-tech/xiaozhi-esp32-server)
 
 ---
-© 2026 Thousmous | Last updated: 2026-08-28
+© 2026 Thousmous | Last updated: 2026-09-03
